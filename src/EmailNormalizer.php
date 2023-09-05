@@ -38,7 +38,7 @@ class EmailNormalizer
      * @param string $email
      * @return string|null
      */
-    public function normalize($email)
+    public function normalize($email, $excludeRule = [])
     {
         if (($emailParts = self::parseEmail($email)) === null) {
             return null;
@@ -52,15 +52,15 @@ class EmailNormalizer
         } else if (isset($this->emailRules[$domain])) {
             $rules = $this->emailRules[$domain]['rules'];
 
-            if (($rules & self::PLUS_AND_DOTS) === self::PLUS_AND_DOTS) {
+            if (($rules & self::PLUS_AND_DOTS) === self::PLUS_AND_DOTS && !in_array('PLUS_AND_DOTS', $excludeRule)) {
                 $username = preg_replace('/\.|\+.*/', '', $username);
-            } else if (($rules & self::HYPHEN_AND_DOTS) === self::HYPHEN_AND_DOTS) {
+            } else if (($rules & self::HYPHEN_AND_DOTS) === self::HYPHEN_AND_DOTS && !in_array('HYPHEN_AND_DOTS', $excludeRule)) {
                 $username = preg_replace('/\.|-.*/', '', $username);
-            } else if (($rules & self::PLUS_TAG) === self::PLUS_TAG) {
+            } else if (($rules & self::PLUS_TAG) === self::PLUS_TAG && !in_array('PLUS_TAG', $excludeRule)) {
                 $username = preg_replace('/\+.*/', '', $username);
-            } else if (($rules & self::HYPHEN_TAG) === self::HYPHEN_TAG) {
+            } else if (($rules & self::HYPHEN_TAG) === self::HYPHEN_TAG && !in_array('HYPHEN_TAG', $excludeRule)) {
                 $username = preg_replace('/-.*/', '', $username);
-            } else if (($rules & self::USERNAME_DOTS) === self::USERNAME_DOTS) {
+            } else if (($rules & self::USERNAME_DOTS) === self::USERNAME_DOTS && !in_array('USERNAME_DOTS', $excludeRule)) {
                 $username = preg_replace('/\./', '', $username);
             }
         } else {
@@ -84,6 +84,7 @@ class EmailNormalizer
             return null;
         }
 
+        $email = strtolower($email);
         $atPosition = strrpos($email, '@');
         $username = substr($email, 0, $atPosition);
         $domain   = substr($email, $atPosition + 1);

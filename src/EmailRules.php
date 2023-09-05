@@ -14,6 +14,9 @@ use Gabrola\EmailNormalizer\Providers\Outlook;
 use Gabrola\EmailNormalizer\Providers\ProtonMail;
 use Gabrola\EmailNormalizer\Providers\Yahoo;
 use Gabrola\EmailNormalizer\Providers\Yandex;
+use Gabrola\EmailNormalizer\Providers\ZohoMail;
+use Gabrola\EmailNormalizer\Providers\Posteo;
+use Gabrola\EmailNormalizer\Providers\Mailbox;
 
 /**
  * Class EmailRules
@@ -39,7 +42,10 @@ class EmailRules implements EmailRulesInterface
             new ICloud(),
             new Yandex(),
             new MailRu(),
-            new ProtonMail()
+            new ProtonMail(),
+            new Mailbox(),
+            new ZohoMail(),
+            new Posteo()
         ];
     }
 

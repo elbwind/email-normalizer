@@ -30,6 +30,9 @@ class ProtonMail implements EmailRulesInterface
             'pm.me'          => [
                 'rules' => EmailNormalizer::PLUS_TAG
             ],
+            'proton.me'          => [
+                'rules' => EmailNormalizer::PLUS_TAG
+            ],
         ];
     }
 }

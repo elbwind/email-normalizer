@@ -10,3 +10,4 @@ composer.phar
 .idea
 .phpunit.result.cache
 /build
+/src/vendor

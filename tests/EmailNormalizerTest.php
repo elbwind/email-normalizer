@@ -25,7 +25,7 @@ class EmailNormalizerTest extends TestCase
     public function testNormalize($email, $expected)
     {
         $emailNormalizer = new EmailNormalizer(new TestRules());
-        $this->assertEquals($expected, $emailNormalizer->normalize($email));
+        $this->assertEquals($expected, $emailNormalizer->normalize($email)); //['PLUS_TAG']
     }
 
     /**
@@ -57,5 +57,10 @@ class EmailNormalizerTest extends TestCase
         yield ['us.er.na.me-whatever@hyphen.test', 'us.er.na.me@hyphen.test'];
         yield ['us.er.na.me+whatever@dots.test', 'username+whatever@dots.test'];
         yield ['wh.at+ever@username.subdomain.test', 'username@subdomain.test'];
+
+        yield ['geht.das.yetzt+test@outlook.com.gr', 'geht.das.yetzt@outlook.com.gr'];
+
+        yield ['firstname.lastname@web.de-mail.de', 'firstname.lastname@web.de-mail.de'];
+        yield ['firstname.lastname+plus@web.de', 'firstname.lastname+plus@web.de'];
     }
 }
